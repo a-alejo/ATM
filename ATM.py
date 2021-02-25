@@ -23,21 +23,31 @@ def deposit():
     print('Your new account balance is $' + str(user1.balance))
 
 
-"""
 def end():
     print('Thank you, goodbye!')
+    quit()
 
 
+def password_account_check():
+    if user1.user == user_username and user1.password == user_password:
+        print('Your current account balance is $' + str(user1.balance))
+        user_selection()
+    elif user1.user != user_username or user1.password != user_password:
+        print('Invalid Username and/or Password. Try again.')
+
+
+# function to restart sub-menu without ending program
 def user_continue():
-    user_continue = input('Do you want to continue? Y/N: ')
-    if user_continue == 'n':
+    user_continue = input('\nDo you want to continue? Y/N: ')
+    user_continue = user_continue.upper()
+    if user_continue == 'N':
         end()
-    else:
-        return
-"""
+    elif user_continue == 'Y':
+        return user_selection()
 
-if user1.user == user_username and user1.password == user_password:
-    print('Your current account balance is $' + str(user1.balance))
+
+# user selection redirects user to selected atm function
+def user_selection():
     user_selection = input('\nWhat would you like to do?\n'
                            'Enter 1 - To Withdraw\n'
                            'Enter 2 - To Deposit\n'
@@ -46,20 +56,17 @@ if user1.user == user_username and user1.password == user_password:
     while user_selection != 0:
         if user_selection == '1':
             withdraw()
-            user_continue = input('\nDo you want to continue? Y/N: ')
-            user_continue = user_continue.upper()
-            if user_continue == 'N':
-                print('Thank you, Goodbye!')
-                break
-            else:
-                continue
+            user_continue()
 
         if user_selection == '2':
             deposit()
-            break
+            user_continue()
+
         if user_selection == '3':
-            break
+            end()
+        else:
+            print('Invalid Choice')
+            user_continue()
 
 
-elif user1.user != user_username or user1.password != user_password:
-    print('Invalid Username and Password. Try again.')
+password_account_check()
